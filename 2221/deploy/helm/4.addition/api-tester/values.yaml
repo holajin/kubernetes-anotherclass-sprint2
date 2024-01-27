@@ -5,7 +5,7 @@
 replicaCount: 2
 
 image:
-  repository: 1pro/api-tester
+  repository: 1pro/api-tester:v1.0.0
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -65,12 +65,12 @@ resources:
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  requests:
-    memory: "100Mi"
-    cpu: "100m"
-  limits:
-    memory: "200Mi"
-    cpu: "200m"
+   limits:
+     cpu: "200m"
+     memory: "200Mi"
+   requests:
+     cpu: "100m"
+     memory: "100Mi"
 
 autoscaling:
   enabled: false
@@ -90,6 +90,7 @@ volumeMounts:
   - name: secret-datasource
     mountPath: /usr/src/myapp/datasource
 
+
 nodeSelector: {}
 
 tolerations: []
@@ -102,7 +103,6 @@ configmap:
       spring_profiles_active: "dev"
       application_role: "ALL"
       postgresql_filepath: "/usr/src/myapp/datasource/postgresql-info.yaml"
-
 secret:
   data:
     postgresql:
